@@ -1,0 +1,106 @@
+---
+import { PHONE, PHONE_HREF, navLinks } from "../data/site";
+---
+
+<!-- URGENT BANNER -->
+<div
+  class="bg-orange-600 text-white text-center py-2 px-4 text-sm font-semibold tracking-wide"
+>
+  <span
+    class="beacon inline-block w-2 h-2 rounded-full bg-white mr-2 align-middle"
+  ></span>
+  BAJBAN VAN? HÍVJON MOST – AZONNAL INDULUNK &nbsp;·&nbsp;
+  <a href={PHONE_HREF} class="underline underline-offset-2 font-bold">{PHONE}</a
+  >
+</div>
+
+<!-- NAV -->
+<nav
+  class="sticky top-0 z-50 bg-[#0f0f0f]/95 backdrop-blur border-b border-white/10"
+>
+  <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2">
+      <span class="font-display font-bold text-xl tracking-tight">
+        Tanács<span class="text-orange-500"> Autómentő</span>
+      </span>
+    </a>
+
+    <div
+      class="hidden md:flex items-center gap-8 text-sm font-medium text-white/70"
+    >
+      {
+        navLinks.map((l) => (
+          <a href={l.href} class="hover:text-white transition-colors">
+            {l.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <a
+      href={PHONE_HREF}
+      class="hidden md:flex items-center gap-2 bg-orange-600 hover:bg-orange-500 text-white font-bold py-2.5 px-5 rounded text-sm transition-colors pulse-cta"
+    >
+      <span>📞</span>
+      {PHONE}
+    </a>
+
+    <button
+      id="menu-toggle"
+      class="group md:hidden text-white p-2"
+      aria-label="Menü megnyitása"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <div
+        class="w-6 h-0.5 bg-white mb-1.5 transition-all group-aria-expanded:rotate-45 group-aria-expanded:translate-y-2"
+      >
+      </div>
+      <div
+        class="w-6 h-0.5 bg-white mb-1.5 transition-all group-aria-expanded:opacity-0"
+      >
+      </div>
+      <div
+        class="w-6 h-0.5 bg-white transition-all group-aria-expanded:-rotate-45 group-aria-expanded:-translate-y-2"
+      >
+      </div>
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-[#1a1a1a] border-t border-white/10 px-5 py-4 flex-col gap-4 text-sm"
+  >
+    {
+      navLinks.map((l) => (
+        <a href={l.href} class="text-white/80 hover:text-white">
+          {l.label}
+        </a>
+      ))
+    }
+    <a
+      href={PHONE_HREF}
+      class="bg-orange-600 text-white font-bold py-3 px-4 rounded text-center"
+    >
+      📞 Hívjon most — {PHONE}
+    </a>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById("menu-toggle")!;
+  const menu = document.getElementById("mobile-menu")!;
+
+  const setOpen = (open: boolean) => {
+    toggle.setAttribute("aria-expanded", String(open));
+    menu.classList.toggle("hidden", !open);
+    menu.classList.toggle("flex", open);
+  };
+
+  toggle.addEventListener("click", () =>
+    setOpen(toggle.getAttribute("aria-expanded") !== "true"),
+  );
+  menu
+    .querySelectorAll("a")
+    .forEach((a) => a.addEventListener("click", () => setOpen(false)));
+</script>

@@ -1,0 +1,163 @@
+---
+import { Image, getImage } from "astro:assets";
+import SectionHeading from "./SectionHeading.astro";
+import { DEFAULT_PHOTO_ALT, photoCaptions } from "../data/photos";
+
+const files = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/photos/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP}",
+  { eager: true },
+);
+
+const INITIAL_COUNT = 12;
+
+const photos = await Promise.all(
+  Object.entries(files)
+    .sort(([a], [b]) => a.localeCompare(b, "hu", { numeric: true }))
+    .map(async ([path, mod]) => {
+      const name = path.split("/").pop()!;
+      const full = await getImage({ src: mod.default, width: 1600 });
+      return {
+        name,
+        src: mod.default,
+        full: full.src,
+        alt: photoCaptions[name] ?? DEFAULT_PHOTO_ALT,
+      };
+    }),
+);
+---
+
+<section id="gallery" class="bg-[#0f0f0f] py-24 px-5 scroll-mt-20">
+  <div class="max-w-7xl mx-auto">
+    <SectionHeading eyebrow="Flottánk & Csapatunk"
+      >Készen állunk, minden pillanatban</SectionHeading
+    >
+
+    <div class="columns-2 md:columns-3 lg:columns-4 gap-3">
+      {
+        photos.map((p, i) => (
+          <button
+            type="button"
+            data-lightbox-index={i}
+            data-full={p.full}
+            data-alt={p.alt}
+            class:list={[
+              "group relative block w-full mb-3 break-inside-avoid rounded-lg overflow-hidden bg-[#2a2a2a] cursor-zoom-in focus-visible:outline-2 focus-visible:outline-orange-500",
+              { "hidden gallery-extra": i >= INITIAL_COUNT },
+            ]}
+          >
+            <Image
+              src={p.src}
+              alt={p.alt}
+              widths={[400, 800]}
+              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+              class="w-full h-auto group-hover:scale-105 transition-transform duration-500"
+            />
+          </button>
+        ))
+      }
+    </div>
+
+    {
+      photos.length > INITIAL_COUNT && (
+        <div class="text-center mt-8">
+          <button
+            id="gallery-more"
+            type="button"
+            class="border border-white/30 hover:border-white text-white font-semibold py-3 px-8 rounded transition-colors text-sm"
+          >
+            Összes kép ({photos.length})
+          </button>
+        </div>
+      )
+    }
+
+    <dialog
+      id="lightbox"
+      class="m-auto max-w-none max-h-none w-screen h-screen bg-black/95 p-0 backdrop:bg-black/80"
+    >
+      <div
+        class="relative w-full h-full flex items-center justify-center p-4 md:p-12"
+      >
+        <img
+          id="lightbox-img"
+          alt=""
+          class="max-w-full max-h-full object-contain rounded"
+        />
+        <button
+          type="button"
+          data-lightbox="close"
+          aria-label="Bezárás"
+          class="absolute top-4 right-4 text-white/80 hover:text-white text-4xl leading-none p-2"
+        >
+          ×
+        </button>
+        <button
+          type="button"
+          data-lightbox="prev"
+          aria-label="Előző kép"
+          class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-5xl p-3"
+        >
+          ‹
+        </button>
+        <button
+          type="button"
+          data-lightbox="next"
+          aria-label="Következő kép"
+          class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-5xl p-3"
+        >
+          ›
+        </button>
+      </div>
+    </dialog>
+  </div>
+</section>
+
+<script>
+  const dialog = document.getElementById(
+    "lightbox",
+  ) as HTMLDialogElement | null;
+  const img = document.getElementById(
+    "lightbox-img",
+  ) as HTMLImageElement | null;
+  const items = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-lightbox-index]"),
+  );
+  let current = 0;
+
+  const show = (i: number) => {
+    if (!dialog || !img) return;
+    current = (i + items.length) % items.length;
+    img.src = items[current].dataset.full!;
+    img.alt = items[current].dataset.alt!;
+    if (!dialog.open) dialog.showModal();
+  };
+
+  items.forEach((el, i) => el.addEventListener("click", () => show(i)));
+
+  dialog?.addEventListener("click", (e) => {
+    const action = (e.target as HTMLElement).closest<HTMLElement>(
+      "[data-lightbox]",
+    )?.dataset.lightbox;
+    if (action === "prev") show(current - 1);
+    else if (action === "next") show(current + 1);
+    else if (
+      action === "close" ||
+      e.target === dialog ||
+      e.target === img?.parentElement
+    )
+      dialog.close();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!dialog?.open) return;
+    if (e.key === "ArrowLeft") show(current - 1);
+    if (e.key === "ArrowRight") show(current + 1);
+  });
+
+  document.getElementById("gallery-more")?.addEventListener("click", (e) => {
+    document
+      .querySelectorAll(".gallery-extra")
+      .forEach((el) => el.classList.remove("hidden"));
+    (e.currentTarget as HTMLElement).remove();
+  });
+</script>

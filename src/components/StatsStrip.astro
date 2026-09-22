@@ -1,0 +1,16 @@
+---
+import { stats } from "../data/site";
+---
+
+<div class="bg-orange-600 py-10 px-5">
+  <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+    {
+      stats.map((s) => (
+        <div>
+          <div class="font-display font-black text-4xl text-white mb-1">{s.value}</div>
+          <div class="text-orange-200 text-sm">{s.label}</div>
+        </div>
+      ))
+    }
+  </div>
+</div>

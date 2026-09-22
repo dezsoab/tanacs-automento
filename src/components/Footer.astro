@@ -1,0 +1,46 @@
+---
+import { EMAIL, PHONE, PHONE_HREF, services } from "../data/site";
+---
+
+<footer class="bg-[#0a0a0a] border-t border-white/10 py-12 px-5">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-10">
+    <div>
+      <div class="flex items-center gap-2 mb-4">
+        <span class="font-display font-bold text-lg"
+          >Tanács<span class="text-orange-500"> Autómentő</span></span
+        >
+      </div>
+      <p class="text-white/45 text-sm leading-relaxed">
+        Gyors, profi autómentés és vontatás. Napi 24 órában, heti 7 napon
+        rendelkezésére állunk.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="font-bold text-white text-sm mb-4">Szolgáltatások</h4>
+      <ul class="space-y-2 text-white/45 text-sm">
+        {services.map((s) => <li>{s.title}</li>)}
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-bold text-white text-sm mb-4">Kapcsolat</h4>
+      <a
+        href={PHONE_HREF}
+        class="block text-orange-500 font-display font-bold text-xl mb-2 hover:text-orange-400 transition-colors"
+      >
+        {PHONE}
+      </a>
+      <p class="text-white/45 text-sm mb-1">{EMAIL}</p>
+      <p class="text-white/45 text-sm">
+        Egész ország · Minden autópálya · 0–24
+      </p>
+    </div>
+  </div>
+
+  <div
+    class="max-w-7xl mx-auto mt-10 pt-6 border-t border-white/8 text-center text-white/25 text-xs"
+  >
+    © {new Date().getFullYear()} Tanács Autómentő. Minden jog fenntartva.
+  </div>
+</footer>

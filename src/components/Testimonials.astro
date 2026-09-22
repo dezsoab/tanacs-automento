@@ -1,0 +1,34 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import { testimonials } from "../data/site";
+---
+
+<section id="testimonials" class="bg-[#0f0f0f] py-24 px-5 scroll-mt-20">
+  <div class="max-w-7xl mx-auto">
+    <SectionHeading eyebrow="Ügyfeleink mondják"
+      >akik bíznak a Tanácsban</SectionHeading
+    >
+
+    <div class="grid md:grid-cols-3 gap-6">
+      {
+        testimonials.map((t) => (
+          <div class="bg-[#1a1a1a] border border-white/8 rounded-lg p-7">
+            <div
+              class="flex gap-0.5 text-amber-400 text-sm mb-3"
+              aria-label={`${t.stars} csillag`}
+            >
+              {Array.from({ length: t.stars }, () => (
+                <span>★</span>
+              ))}
+            </div>
+            <p class="text-white/80 leading-relaxed mb-6 text-sm">„{t.text}”</p>
+            <div>
+              <p class="font-bold text-white text-sm">{t.name}</p>
+              <p class="text-white/40 text-xs">{t.location}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

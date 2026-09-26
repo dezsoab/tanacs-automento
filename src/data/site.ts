@@ -1,11 +1,12 @@
 import { photos } from "./photos";
 
-export const PHONE = "+36 80 123 456";
-export const PHONE_HREF = "tel:+3680123456";
+export const PHONE = "+36 70 340 0962";
+export const PHONE_HREF = "tel:+36703400962";
 export const EMAIL = "mentes@tanacs-automento.hu";
 
 export const navLinks = [
   { href: "#services", label: "Szolgáltatások" },
+  { href: "#pricing", label: "Árak" },
   { href: "#gallery", label: "Galéria" },
   { href: "#about", label: "Rólunk" },
   { href: "#testimonials", label: "Vélemények" },
@@ -13,25 +14,25 @@ export const navLinks = [
 
 export const services = [
   {
-    title: "Vészhelyzeti Vontatás",
+    title: "Baleseti Vontatás",
     desc: "0–24 platformos és kerékemeléses vontatás minden járműtípushoz. Gyorsan érünk oda.",
     img: photos.havasEjszakaiMentes,
     alt: "Éjszakai mentés havas úton, sérült autó a vontatón",
   },
   {
-    title: "Platformos Szállítás",
+    title: "Csörlős Autószállítás",
     desc: "Biztonságos, károsodásmentes szállítás luxusautóknak, motorkerékpároknak és alacsony hasmagasságú járműveknek.",
     img: photos.platosSzallitas,
     alt: "Platós vontató személyautóval",
   },
   {
-    title: "Akkumulátor Beindítás",
+    title: "Bikázás",
     desc: "Lemerült az akkumulátor? Perceken belül útba állítjuk, bárhol is legyen.",
     img: photos.ejszakaiRakodas,
     alt: "Autó a platón éjszaka, felkapcsolt fényszórókkal",
   },
   {
-    title: "Gumicsere",
+    title: "Mobil Gumizás",
     desc: "Defekt az autópályán vagy parkolóban – biztonságosan és gyorsan megoldjuk.",
     img: photos.pirosAutoPlaton,
     alt: "Piros autó a vontató platóján",
@@ -43,7 +44,7 @@ export const services = [
     alt: "Autó szállítása éjszaka",
   },
   {
-    title: "Csörlős Mentés",
+    title: "Darus Mentés",
     desc: "Sárban, hóban vagy árokba csúszott? Visszahúzzuk a biztonságos útra.",
     img: photos.darusMentesArokbol,
     alt: "Darus mentés: összetört autó kiemelése az árokból",
@@ -54,7 +55,7 @@ export const testimonials = [
   {
     name: "Kovács Márton",
     location: "Budapest, M7-es autópálya",
-    text: "Éjjel 2-kor mondott fel az autóm az autópályán. Felhívtam a Tanácsot, és 20 percen belül ott voltak. Életmentők.",
+    text: "Éjjel 2-kor mondott fel az autóm az autópályán. Felhívtam a Royal-t, és 20 percen belül ott voltak. Életmentők.",
     stars: 5,
   },
   {
@@ -66,7 +67,7 @@ export const testimonials = [
   {
     name: "Németh Zoltán",
     location: "Győr",
-    text: "Defektet kaptam az M1-esen a gyerekekkel. A Tanács gyorsan kiért és mindent intézett. Végig biztonságban éreztük magunkat.",
+    text: "Defektet kaptam az M1-esen a gyerekekkel. A Royal autómentő  gyorsan kiért és mindent intézett. Végig biztonságban éreztük magunkat.",
     stars: 5,
   },
 ];
@@ -79,8 +80,27 @@ export const stats = [
 ];
 
 export const whyUs = [
-  "Nincs felár éjszaka, hétvégén vagy ünnepnapon",
+  "Hétvégén és ünnepnapon is",
   "Mi veszünk fel minden hívást – nincs automata robot",
   // "GPS-követett járművek, így pontosan tudja, mikor érünk oda",
   "Engedéllyel rendelkező, biztosított és átvilágított autómentők",
+];
+
+export const priceFactors = [
+  {
+    title: "Autó típusa",
+    desc: "Személyautó, egyterű vagy kisteherautó – a jármű mérete és súlya határozza meg, milyen vontató kell.",
+  },
+  {
+    title: "Autó állapota",
+    desc: "Gurul-e még, mennyire sérült, szükség van-e darus kiemelésre vagy csörlőre.",
+  },
+  {
+    title: "Helyszín",
+    desc: "Város, autópálya, földút vagy árok – számít, mennyire könnyen közelíthető meg a jármű.",
+  },
+  {
+    title: "Távolság",
+    desc: "Honnan hová kell szállítanunk a járművet.",
+  },
 ];

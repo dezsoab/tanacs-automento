@@ -53,4 +53,4 @@ export const photoCaptions: Record<string, string> = {
   "22-egyteru-auto-vontaton.jpg": "Fehér egyterű autó a vontatón napsütésben",
 };
 
-export const DEFAULT_PHOTO_ALT = "Tanács Autómentő munka közben";
+export const DEFAULT_PHOTO_ALT = "Royal Autómentő munka közben";
